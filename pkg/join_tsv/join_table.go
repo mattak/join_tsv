@@ -1,14 +1,34 @@
 package join_tsv
 
 import (
+	"bufio"
 	"fmt"
-	"github.com/mattak/stocks/cmd/basics"
+	"os"
 	"strings"
 )
 
+func readLines(file string) []string {
+	fp, err := os.Open(file)
+
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "ERROR: Cannot read file: %s\n", file)
+		os.Exit(1)
+		return nil
+	}
+
+	data := []string{}
+	scanner := bufio.NewScanner(fp)
+
+	for scanner.Scan() {
+		data = append(data, scanner.Text())
+	}
+
+	return data
+}
+
 func readData(file string) [][]string {
 	result := [][]string{}
-	lines := basics.ReadLines(file)
+	lines := readLines(file)
 	for _, line := range lines {
 		values := strings.Split(line, "\t")
 		result = append(result, values)

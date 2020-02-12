@@ -2,7 +2,7 @@ package main
 
 import (
 	"errors"
-	"github.com/urfave/cli"
+	"github.com/urfave/cli/v2"
 	"github.com/mattak/join_tsv/pkg/join_tsv"
 	"os"
 	"strconv"
